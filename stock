@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pivot Point Calculator</title>
+</head>
+<body>
+  <h1>Pivot Point Calculator</h1>
+  
+  <form>
+    <label for="high">High:</label>
+    <input type="number" id="high" name="high" step="0.01" required><br><br>
+    
+    <label for="low">Low:</label>
+    <input type="number" id="low" name="low" step="0.01" required><br><br>
+    
+    <label for="close">Closing Price:</label>
+    <input type="number" id="close" name="close" step="0.01" required><br><br>
+    
+    <input type="submit" value="Calculate">
+  </form>
+  
+  <h2>Pivot Point Results</h2>
+  <div id="results"></div>
+  
+  <script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent form submission
+      
+      // Get input values
+      const high = parseFloat(document.getElementById('high').value);
+      const low = parseFloat(document.getElementById('low').value);
+      const close = parseFloat(document.getElementById('close').value);
+      
+      // Calculate pivot points
+      const pivot = (high + low + close) / 3;
+      const support1 = (2 * pivot) - high;
+      const support2 = pivot - (high - low);
+      const support3 = low - 2 * (high - pivot);
+      const resistance1 = (2 * pivot) - low;
+      const resistance2 = pivot + (high - low);
+      const resistance3 = high + 2 * (pivot - low);
+      
+      // Display results
+      const results = document.getElementById('results');
+      results.innerHTML = `
+        <p>Pivot Point: ${pivot.toFixed(2)}</p>
+        <p>Support 1: ${support1.toFixed(2)}</p>
+        <p>Support 2: ${support2.toFixed(2)}</p>
+        <p>Support 3: ${support3.toFixed(2)}</p>
+        <p>Resistance 1: ${resistance1.toFixed(2)}</p>
+        <p>Resistance 2: ${resistance2.toFixed(2)}</p>
+        <p>Resistance 3: ${resistance3.toFixed(2)}</p>
+      `;
+    });
+  </script>
+</body>
+</html>
